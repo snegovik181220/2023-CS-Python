@@ -52,7 +52,6 @@ def to_prefix(equation: str) -> List[str]:
 
     while stack:
         output.append(stack.pop())
-
     return list(reversed(output))
 
 
