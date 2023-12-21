@@ -32,6 +32,12 @@ Documentation = "https://gitlab.com/maruschin/2023-cs-python#readme"
 Issues = "https://gitlab.com/maruschin/2023-cs-python/issues"
 Source = "https://gitlab.com/maruschin/2023-cs-python"
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+      packages = ["src/main"]
+
 [tool.hatch.version]
 path = "src/main/__about__.py"
 
