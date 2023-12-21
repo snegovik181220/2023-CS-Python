@@ -1,31 +1,27 @@
 from operator import add, mul, sub, truediv
-from typing import List, Optional, Union
+from typing import List
 
 ops = {"+": add, "-": sub, "*": mul, "/": truediv}
 
-def prefix_evaluate(prefix_evaluation: List[str]) -> int:
-    stack = []
 
-    prefix_evaluation = prefix_evaluation.split() if isinstance(prefix_evaluation, str) else prefix_evaluation
+def prefix_evaluate(prefix_evaluation):
+    if not prefix_evaluation:
+        return None
+
+    stack = []
+    prefix_evaluation = prefix_evaluation.split() \
+        if isinstance(prefix_evaluation, str) \
+        else prefix_evaluation
 
     for token in reversed(prefix_evaluation):
         if token.isdigit():
             stack.append(int(token))
-        else:
-            if token in "+-*/":
-                operand1 = stack.pop()
-                operand2 = stack.pop()
+        elif token in ops:
+            operand1 = stack.pop()
+            operand2 = stack.pop()
 
-                if token == "+":
-                    result = add(operand1, operand2)
-                elif token == "-":
-                    result = sub(operand1, operand2)
-                elif token == "*":
-                    result = mul(operand1, operand2)
-                elif token == "/":
-                    result = div(operand1, operand2)
-
-                stack.append(result)
+            result = ops[token](operand1, operand2)
+            stack.append(result)
 
     return stack[0]
 
@@ -34,7 +30,7 @@ def to_prefix(equation: str) -> List[str]:
     precedence = {"+": 1, "-": 1, "*": 2, "/": 2}
     operators = set("+*-/")
     output = []
-    stack = []
+    stack: List[object] = []
 
     for token in reversed(equation.split()):
         if token.isdigit():
@@ -52,6 +48,7 @@ def to_prefix(equation: str) -> List[str]:
 
     while stack:
         output.append(stack.pop())
+
     return list(reversed(output))
 
 
