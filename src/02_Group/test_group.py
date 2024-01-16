@@ -1,9 +1,9 @@
-from collections.abc import Iterable
-from datetime import date, datetime, timezone
-from itertools import permutations
+import pytest  # noqa: I001
 
-import pytest
+from itertools import permutations
+from collections.abc import Iterable
 from group import Group, Person, Student
+from datetime import date, datetime, timezone
 
 
 @pytest.fixture
@@ -33,7 +33,7 @@ class TestPerson:
         assert hasattr(polina, "name")
         assert hasattr(polina, "surname")
         assert hasattr(polina, "sex")
-        assert hasattr(polina, "bday")
+        assert hasattr(polina, "b_day")
 
     @staticmethod
     def test_error_init():
@@ -48,11 +48,11 @@ class TestPerson:
 
     def test_ages(self, polina: Person):
         assert hasattr(polina, "full_ages")
-        assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.bday.year
+        assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.b_day.year
 
         for i in range(10):
-            polina.bday = date(1990 + i, 4, 12)
-            assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.bday.year
+            polina.b_day = date(1990 + i, 4, 12)
+            assert polina.full_ages() == datetime.now(tz=timezone.utc).year - polina.b_day.year
 
     @staticmethod
     def test_eq(polina: Person):
