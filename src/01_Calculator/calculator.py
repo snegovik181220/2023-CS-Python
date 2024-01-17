@@ -1,4 +1,5 @@
 from operator import add, mul, sub, truediv
+from operator import add, mul, sub, truediv
 from typing import List
 
 ops = {"+": add, "-": sub, "*": mul, "/": truediv}
